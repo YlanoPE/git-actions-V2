@@ -25,3 +25,11 @@ jobs:
     
        - name: Run unit tests
          run: npm test
+
+       - name: Better Test Reports Action
+         uses: mridang/action-test-reporter@v1.3.0
+         with:
+          github-token:
+          working-directory:
+          coverafe-file:
+          upload-coverage-report:
