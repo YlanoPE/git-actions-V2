@@ -20,4 +20,6 @@ jobs:
        - name: Show all Directorys
          run: ls -alhR
          
-
+       - name: Build zip package
+         run: zip -r calculator-app.zip . -x ".git/*" ".github/*"
+    
