@@ -1,0 +1,27 @@
+name: "Build Example"
+on: 
+  push:
+    branches:
+      - main
+      
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+
+    steps:
+       - name: checkout
+         uses: actions/checkout@v7.0.1
+
+       - name: setup NPM
+         uses: actions/setup-node@v4
+         with:
+          node-version: '20'
+
+       - name: Show all Directorys
+         run: ls -alhR
+         
+       - name: Build zip package
+         run: zip -r calculator-app.zip . -x ".git/*" ".github/*"
+    
+       - name: Run unit tests
+         run: npm test
