@@ -16,17 +16,23 @@ jobs:
          uses: actions/setup-node@v4
          with:
           node-version: '20'
+          
+       - name: Install dependencies
+         run: npm install
 
-       - name: Show all Directorys
-         run: ls -alhR
-         
-       - name: Build zip package
-         run: zip -r calculator-app.zip . -x ".git/*" ".github/*"
+       - name: Run tests
+         run: npm test -- --coverage
     
        - name: Better Test Reports Action
          uses: mridang/action-test-reporter@v1.3.0
          with:
-          github-token:
-          working-directory:
-          coverage-file:
-          upload-coverage-report:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          coverage-file: coverage/lcov.info
+          upload-coverage-report: true
+         
+       - name: Build zip package
+         run: zip -r calculator-app.zip . -x ".git/*" ".github/*"
+
+       - name: Show all Directorys
+         run: ls -alhR
+
