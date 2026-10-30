@@ -28,5 +28,5 @@ jobs:
          with:
           github-token:
           working-directory:
-          coverafe-file:
+          coverage-file:
           upload-coverage-report:
