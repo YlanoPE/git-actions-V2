@@ -24,7 +24,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/calculator-app
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app
           tags: |
             type=raw,value=latest
             type=ref,event=tag
@@ -40,4 +40,4 @@ jobs:
         uses: docker/scout-action@v1
         with:
           command: quickview
-          image: ${{ secrets.DOCKER_USERNAME }}/calculator-app:latest
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/calculator-app:latest
