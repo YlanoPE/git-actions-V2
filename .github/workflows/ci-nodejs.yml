@@ -4,7 +4,7 @@ on:
     branches: main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -72,6 +72,31 @@ jobs:
             ✅ Build completed
 
             Coverage report generated successfully.
-
             Workflow: ${{ github.workflow }}
             Branch: ${{ github.head_ref }}
+
+
+
+  code-quality:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Prettier Check
+        run: npm run format:check
+
+      - name: Security Audit
+        run: npm audit
