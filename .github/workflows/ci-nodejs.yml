@@ -32,3 +32,46 @@ jobs:
         with:
           name: test-results
           path: coverage/
+
+      - name: Discord Success Main Push
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content":"✅ Main branch build successful"}' \
+          ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Discord Success PR
+        if: success() && github.event_name == 'pull_request'
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content":"✅ Pull Request build successful"}' \
+          ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Discord Failure Main Push
+        if: failure() && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content":"❌ Main branch build failed"}' \
+          ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Discord Failure PR
+        if: failure() && github.event_name == 'pull_request'
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content":"❌ Pull Request build failed"}' \
+          ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Comment Pull Request
+        if: github.event_name == 'pull_request'
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## CI Result
+
+            ✅ Build completed
+
+            Coverage report generated successfully.
+
+            Workflow: ${{ github.workflow }}
+            Branch: ${{ github.head_ref }}
