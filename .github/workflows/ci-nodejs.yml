@@ -9,7 +9,7 @@ jobs:
 
     steps:
       -  name: Checkout
-         uses: action/checkout@v7.0.1
+         uses: actions/checkout@v7.0.1
          with:
           repository: PXL-2TIN-DevOps-Resources/calculator-app-finished
 
@@ -35,4 +35,3 @@ jobs:
         with:
           name: test-results
           path: coverage/
-    
