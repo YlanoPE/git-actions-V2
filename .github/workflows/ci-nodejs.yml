@@ -13,9 +13,6 @@ jobs:
          with:
           repository: PXL-2TIN-DevOps-Resources/calculator-app-finished
 
-      -  name: Instalation Node.js
-         run: sudo apt update && sudo apt install node.js
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
